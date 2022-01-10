@@ -14,7 +14,7 @@ function endGame(user, computer)
 
 function computerChoice () {
     let generateRandom = Math.floor(Math.random() * 3);
-    return (generateRandom === 0 ? 'rock' : generateRandom === 1 ? 'paper' : 'scissors');
+    return 'scissors';//(generateRandom === 0 ? 'rock' : generateRandom === 1 ? 'paper' : 'scissors');
 }
 
 // Function that plays a single round and returns the winner (user’s Choice, computer’s choice)
@@ -30,12 +30,12 @@ function playRound (userChoice, computerChoice) {
             return '|You chose Rock|Computer chose Rock|\n|                          Tied                                    |';
         }
 
-        // If computer chooses paper, user lost
+        // If computer chooses paper, user loses
         if (computerChoice() === 'paper')
         {
-            return '|You chose Rock|Computer chose Paper|\n|       You Lost      |  Paper Beats Rock        |';
+            return '|You chose Rock|Computer chose Paper|\n|       You Lost      |    Paper Beats Rock      |';
         }
-        // If computer chooses scissors, user won
+        // If computer chooses scissors, user wins
         return '|You chose Rock|Computer chose Scissors|\n|       You Won     |      Rock Beats Scissors    |';
         
     }
@@ -55,29 +55,31 @@ function playRound (userChoice, computerChoice) {
             return '|You chose Paper|Computer chose Paper|\n|                           Game Tied                           |';
         }
 
-        // If computer chooses scissors (only option), user loses
+        // If computer chooses scissors, user loses
         return '|You chose Paper|Computer chose Scissors|\n|        You Lost       |     Scissors beats Paper   |';
     }
 
     // If user chooses scissors
     else if (userChoice === 'scissors')
     {
-
+        // If computer chooses rock, user loses
         if (computerChoice() === 'rock')
         {
             return '|You chose Scissors|Computer chose Rock|\n|        You Lost          |   Rock Beats Scissors  |';
         }
 
+        // If computer chooses paper, user wins
         if (computerChoice() === 'paper')
         {
             return '|You chose Scissors|Computer chose Paper|\n|     You Won         |Scissors Beats Paper|';
         }
         
-        return '|You chose Paper|Computer chose Rock|\n|                          Game Tied                          |';
+        // If computer chooses scissors, game tied
+        return '|You chose Scissors|Computer chose Scissors|\n|                             Game Tied                                 |';
     }
     else 
     {
-        return "Invalid Entry, must type rock, paper or scissors.";
+        return 'Invalid Entry, must type rock, paper or scissors.';
     }
 }
 
@@ -95,14 +97,16 @@ function game() {
     intro += 'Every round you win, you gain a score\n';
     intro += 'If a round is tied, no one scores and an ';
     intro += 'extra round is awarded\nThe most points win ';
-    intro += 'and tie points result in a rematch.';
+    intro += 'and tie points result in a rematch.\n'
+    intro += 'Game will also end if the score gap is so great';
+    intro += 'that it is impossible for the losing score to comeback and win';
     
     // Print Intro
     alert(intro);
     rounds = prompt('How many rounds?\nA zero or negative number will exit the game and the computer will automatically win');
     if (rounds >= 1) 
     {
-        userInput = prompt(`This is the first round, ${printScore(userScore, computerScore)}\nRock! Paper! Scissors!`);
+        userInput = prompt(`Welcome, This is round 1, ${printScore(userScore, computerScore)}\nRock! Paper! Scissors!`);
     }
 
     // Iterate through each round, 
@@ -122,8 +126,10 @@ function game() {
             computerScore++;
             currentRound++;
         }
-
-        if (parseInt(currentRound) === parseInt(rounds)+1)
+        
+        // Game decision
+        // The second condition ends the game if it is impossible for the losing score to come back and win
+        if (parseInt(currentRound) === parseInt(rounds)+1 || rounds - currentRound <= (userScore > computerScore ? userScore - computerScore : computerScore - userScore))
         {
             
             if (userScore > computerScore)
@@ -156,7 +162,7 @@ function game() {
                 }
                 else
                 {
-                    currentRound++;
+                    currentRound += rounds;
                 }
             }
         }
