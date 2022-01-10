@@ -98,7 +98,7 @@ function game() {
     intro += 'If a round is tied, no one scores and an ';
     intro += 'extra round is awarded\nThe most points win ';
     intro += 'and tie points result in a rematch.\n'
-    intro += 'Game will also end if the score gap is so great';
+    intro += 'Game will also end if the score gap is so great ';
     intro += 'that it is impossible for the losing score to comeback and win';
     
     // Print Intro
