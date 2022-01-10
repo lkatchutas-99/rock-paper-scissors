@@ -1,7 +1,7 @@
 // Function that prints the score
 function printScore(user, computer)
 {
-    return `Scores are: User: ${user}-Computer: ${computer}\n`
+    return `Scores are: User: ${user}-Computer: ${computer}\n`;
 }
 
 // Function that returns endgame message (user, computer)
@@ -27,7 +27,7 @@ function playRound (userChoice, computerChoice) {
         // If computer chooses rock, game tied
         if (computerChoice() === 'rock')
         {
-            return '|You chose Rock|Computer chose Rock|\n|                          Tied                                    |'
+            return '|You chose Rock|Computer chose Rock|\n|                          Tied                                    |';
         }
 
         // If computer chooses paper, user lost
@@ -70,10 +70,10 @@ function playRound (userChoice, computerChoice) {
 
         if (computerChoice() === 'paper')
         {
-            return '|You chose Scissors|Computer chose Paper|\n|     You Won         |Scissors Beats Paper|'
+            return '|You chose Scissors|Computer chose Paper|\n|     You Won         |Scissors Beats Paper|';
         }
         
-        return '|You chose Paper|Computer chose Rock|\n|                          Game Tied                          |'
+        return '|You chose Paper|Computer chose Rock|\n|                          Game Tied                          |';
     }
     else 
     {
@@ -114,18 +114,16 @@ function game() {
         if (roundResult.includes('Won'))
         {
             userScore++;
+            currentRound++;
         }
 
         else if (roundResult.includes('Lost'))
         {
             computerScore++;
-        }
-        else
-        {
-            currentRound--;
+            currentRound++;
         }
 
-        if (parseInt(currentRound) === parseInt(rounds))
+        if (parseInt(currentRound) === parseInt(rounds)+1)
         {
             
             if (userScore > computerScore)
@@ -141,7 +139,7 @@ function game() {
             else if (userScore === computerScore)
             {
                 alert(endGame(userScore, computerScore) + '\nTie, humans are just as good as computers. We must rematch');
-                currentRound = 0;
+                currentRound = 1;
                 userScore = 0;
                 computerScore = 0;
             }
@@ -151,14 +149,18 @@ function game() {
                 let playAgain = prompt("That was fun, Do you want to play again?\n'y' or 'Y' for yes, anything else or cancel for no");
                 if (playAgain === 'y' || playAgain === 'Y')
                 {
-                    currentRound = 0;
+                    currentRound = 1;
                     userScore = 0;
                     computerScore = 0;
                     rounds = prompt('How many rounds?\nA zero or negative number will exit the game and the computer will automatically win');
                 }
+                else
+                {
+                    currentRound++;
+                }
             }
         }
-        ++currentRound;
+        
         if (currentRound <= rounds) 
         {
             userInput = prompt(`This is round ${currentRound}, ${printScore(userScore, computerScore)}\nRock! Paper! Scissors!`);
