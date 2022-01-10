@@ -1,13 +1,13 @@
 // Function that prints the score
-function printScore(user, computer)
+function printScore(name, userScore, computerScore)
 {
-    return `Scores are: User: ${user}-Computer: ${computer}\n`;
+    return `Scores are: ${name}: ${userScore}-Computer: ${computerScore}\n`;
 }
 
 // Function that returns endgame message (user, computer)
-function endGame(user, computer)
+function endGame(userName, userScore, computerScore)
 {
-    return ('End Game!!!\n' + printScore(user, computer));
+    return ('End Game!!!\n' + printScore(userName, userScore, computerScore));
 }
 
 // Function that returns Computer’s choice
@@ -89,6 +89,7 @@ function game() {
 
     let currentRound = 1;
     let userScore = 0;
+    let userName = prompt('Enter Your name');
     let computerScore = 0;
     let roundResult = '';
     let userInput = '';
@@ -106,7 +107,7 @@ function game() {
     rounds = prompt('How many rounds?\nA zero or negative number will exit the game and the computer will automatically win');
     if (rounds >= 1) 
     {
-        userInput = prompt(`Welcome, This is round 1, ${printScore(userScore, computerScore)}\nRock! Paper! Scissors!`);
+        userInput = prompt(`Welcome, This is round 1, ${printScore(userName, userScore, computerScore)}\nRock! Paper! Scissors!`);
     }
 
     // Iterate through each round, 
@@ -134,17 +135,17 @@ function game() {
             
             if (userScore > computerScore)
             {
-                alert(endGame(userScore, computerScore) + '\nYou Won!! I thought computers were superior to humans');
+                alert(endGame(userName, userScore, computerScore) + '\nYou Won!! I thought computers were superior to humans');
             }
 
             else if (userScore < computerScore)
             {
-                alert(endGame(userScore, computerScore) + '\nThe computer won, I knew us computers could takeover humanity, AI world domination is the future');
+                alert(endGame(userName, userScore, computerScore) + '\nThe computer won, I knew us computers could takeover humanity, AI world domination is the future');
             }
 
             else if (userScore === computerScore)
             {
-                alert(endGame(userScore, computerScore) + '\nTie, humans are just as good as computers. We must rematch');
+                alert(endGame(userName, userScore, computerScore) + '\nTie, humans are just as good as computers. We must rematch');
                 currentRound = 1;
                 userScore = 0;
                 computerScore = 0;
@@ -162,14 +163,14 @@ function game() {
                 }
                 else
                 {
-                    currentRound += rounds;
+                    currentRound += parseInt(rounds);
                 }
             }
         }
         
         if (currentRound <= rounds) 
         {
-            userInput = prompt(`This is round ${currentRound}, ${printScore(userScore, computerScore)}\nRock! Paper! Scissors!`);
+            userInput = prompt(`This is round ${currentRound}, ${printScore(userName, userScore, computerScore)}\nRock! Paper! Scissors!`);
         }
     }
 
