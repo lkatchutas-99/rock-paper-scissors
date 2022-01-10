@@ -14,7 +14,7 @@ function endGame(user, computer)
 
 function computerChoice () {
     let generateRandom = Math.floor(Math.random() * 3);
-    return 'scissors';//(generateRandom === 0 ? 'rock' : generateRandom === 1 ? 'paper' : 'scissors');
+    return (generateRandom === 0 ? 'rock' : generateRandom === 1 ? 'paper' : 'scissors');
 }
 
 // Function that plays a single round and returns the winner (user’s Choice, computer’s choice)
