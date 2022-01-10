@@ -84,7 +84,7 @@ function playRound (userChoice, computerChoice) {
 // Function that controls the game
 
 function game() {
-    
+
     let currentRound = 1;
     let userScore = 0;
     let computerScore = 0;
@@ -102,7 +102,7 @@ function game() {
     rounds = prompt('How many rounds?\nA zero or negative number will exit the game and the computer will automatically win');
     if (rounds >= 1) 
     {
-        userInput = prompt(`This is the first round, ${printScore(userScore, computerScore)},\nRock! Paper! Scissors!`);
+        userInput = prompt(`This is the first round, ${printScore(userScore, computerScore)}\nRock! Paper! Scissors!`);
     }
 
     // Iterate through each round, 
@@ -130,18 +130,20 @@ function game() {
             
             if (userScore > computerScore)
             {
-                alert(endGame(userScore, computerScore) + 'You Won!! I thought computers were superior to humans');
+                alert(endGame(userScore, computerScore) + '\nYou Won!! I thought computers were superior to humans');
             }
 
             else if (userScore < computerScore)
             {
-                alert(endGame(userScore, computerScore) + 'The computer won, I knew us computers could takeover humanity, AI world domination is the future');
+                alert(endGame(userScore, computerScore) + '\nThe computer won, I knew us computers could takeover humanity, AI world domination is the future');
             }
 
             else if (userScore === computerScore)
             {
-                alert(endGame(userScore, computerScore) + 'Tie, humans are just as good as computers. We must rematch');
+                alert(endGame(userScore, computerScore) + '\nTie, humans are just as good as computers. We must rematch');
                 currentRound = 0;
+                userScore = 0;
+                computerScore = 0;
             }
             
             if (userScore != computerScore)
