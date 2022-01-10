@@ -89,7 +89,7 @@ function game() {
     let userScore = 0;
     let computerScore = 0;
     let roundResult = '';
-    let userInput = ''
+    let userInput = '';
     let rounds = '';
     let intro = 'Welcome to rock paper scissors\n';
     intro += 'Every round you win, you gain a score\n';
