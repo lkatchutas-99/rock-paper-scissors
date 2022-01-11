@@ -1,182 +1,166 @@
-// Function that prints the score
-function printScore(name, userScore, computerScore)
-{
-    return `Scores are: ${name}: ${userScore}-Computer: ${computerScore}\n`;
-}
 
-// Function that returns endgame message (user, computer)
-function endGame(userName, userScore, computerScore)
-{
-    return ('End Game!!!\n' + printScore(userName, userScore, computerScore));
-}
 
 // Function that returns Computer’s choice
-
-function computerChoice () {
+function generateComputerChoice () {
     let generateRandom = Math.floor(Math.random() * 3);
     return (generateRandom === 0 ? 'rock' : generateRandom === 1 ? 'paper' : 'scissors');
 }
 
-// Function that plays a single round and returns the winner (user’s Choice, computer’s choice)
-function playRound (userChoice, computerChoice) {
-    userChoice = userChoice.toLowerCase();
-
-    // If user chooses rock
-    if (userChoice === 'rock')
+// Function that plays a single round and returns the winner
+function playRound (data) {
+    let status = '';
+    data.userChoice = data.userChoice.toLowerCase();
+    
+    if (data.userChoice === data.computerChoice)
     {
-        // If computer chooses rock, game tied
-        if (computerChoice() === 'rock')
-        {
-            return '|You chose Rock|Computer chose Rock|\n|                          Tied                                    |';
-        }
-
-        // If computer chooses paper, user loses
-        if (computerChoice() === 'paper')
-        {
-            return '|You chose Rock|Computer chose Paper|\n|       You Lost      |    Paper Beats Rock      |';
-        }
-        // If computer chooses scissors, user wins
-        return '|You chose Rock|Computer chose Scissors|\n|       You Won     |      Rock Beats Scissors    |';
-        
+        return `${printRoundDecision(data)}\n|                     Game Tied                           |`;
     }
-
-    // If user chooses paper
-    else if (userChoice === 'paper')
+    if ((data.userChoice === 'rock' && data.computerChoice === 'scissors') || 
+    (data.userChoice === 'paper' && data.computerChoice === 'rock') ||
+    (data.userChoice === 'scissors' && data.computerChoice === 'paper'))
     {
-        // If computer chooses rock, user wins
-        if (computerChoice() === 'rock')
-        {
-            return '|You chose Paper|Computer chose Rock|\n|      You Won        |     Paper Beats Rock   |';
-        }
-
-        // If computer chooses paper, game tied
-        if (computerChoice() === 'paper')
-        {
-            return '|You chose Paper|Computer chose Paper|\n|                           Game Tied                           |';
-        }
-
-        // If computer chooses scissors, user loses
-        return '|You chose Paper|Computer chose Scissors|\n|        You Lost       |     Scissors beats Paper   |';
+        status = 'Won';
     }
-
-    // If user chooses scissors
-    else if (userChoice === 'scissors')
+    else if ((data.userChoice === 'rock' && data.computerChoice === 'paper') ||
+    (data.userChoice === 'paper' && data.computerChoice === 'scissors') ||
+    (data.userChoice === 'scissors' && data.computerChoice === 'rock'))
     {
-        // If computer chooses rock, user loses
-        if (computerChoice() === 'rock')
-        {
-            return '|You chose Scissors|Computer chose Rock|\n|        You Lost          |   Rock Beats Scissors  |';
-        }
-
-        // If computer chooses paper, user wins
-        if (computerChoice() === 'paper')
-        {
-            return '|You chose Scissors|Computer chose Paper|\n|     You Won         |Scissors Beats Paper|';
-        }
-        
-        // If computer chooses scissors, game tied
-        return '|You chose Scissors|Computer chose Scissors|\n|                             Game Tied                                 |';
+        status = 'Lost';
     }
     else 
     {
         return 'Invalid Entry, must type rock, paper or scissors.';
     }
+    
+    return `${printRoundDecision(data)}\n|     You ${status}      |    ${status==='Won' ? data.userChoice + ' beats ' + data.computerChoice : data.computerChoice + ' beats ' + data.userChoice}      |`
+    
 }
 
 // Function that controls the game
 
 function game() {
-
-    let currentRound = 1;
-    let userScore = 0;
-    let userName = prompt('Enter Your name');
-    let computerScore = 0;
-    let roundResult = '';
-    let userInput = '';
-    let rounds = '';
-    let intro = 'Welcome to rock paper scissors\n';
-    intro += 'Every round you win, you gain a score\n';
-    intro += 'If a round is tied, no one scores and an ';
-    intro += 'extra round is awarded\nThe most points win ';
-    intro += 'and tie points result in a rematch.\n'
-    intro += 'Game will also end if the score gap is so great ';
-    intro += 'that it is impossible for the losing score to comeback and win';
     
+    // Set Data 
+    let gameData = {
+        userName: '',
+        
+        userScore: 0,
+        computerScore: 0,
+        
+        currentRound: 1,
+        numberOfRounds: 0,
+        roundResult: '',
+        
+        userChoice: '',
+        computerChoice: ''
+    };
+
     // Print Intro
-    alert(intro);
-    rounds = prompt('How many rounds?\nA zero or negative number will exit the game and the computer will automatically win');
-    if (rounds >= 1) 
-    {
-        userInput = prompt(`Welcome, This is round 1, ${printScore(userName, userScore, computerScore)}\nRock! Paper! Scissors!`);
-    }
+    alert("Welcome to rock paper scissors\n" +
+    "Every round you win, you gain a score\n" +
+    "If a round is tied, no one scores and an" +
+    "extra round is awarded\nThe most points win" +
+    "and tie points result in a rematch.\n");
+
+    gameData.userName = prompt('Enter Your name') || 'User';
+
+    // Set rounds
+    gameData.numberOfRounds = prompt('How many rounds?\nA zero, negative number or invalid character will exit the game');
 
     // Iterate through each round, 
-    while (currentRound >= 1 && currentRound <= rounds && userInput)
+    while (gameData.numberOfRounds >= 1 && gameData.currentRound <= gameData.numberOfRounds)
     {
-        roundResult = playRound(userInput, computerChoice)
-        alert(roundResult);
-        
-        if (roundResult.includes('Won'))
+        gameData.userChoice = prompt(`This is round ${gameData.currentRound}, ${printScore(gameData)}\nRock! Paper! Scissors!`);
+        if (gameData.userChoice)
         {
-            userScore++;
-            currentRound++;
-        }
+            gameData.computerChoice = generateComputerChoice();
+            gameData.roundResult = playRound(gameData);
+            alert(gameData.roundResult);
+        
+            if (gameData.roundResult.includes('Won'))
+            {
+                ++gameData.userScore;
+                ++gameData.currentRound;
+            }
+        
+            else if (gameData.roundResult.includes('Lost'))
+            {
+                ++gameData.computerScore;
+                ++gameData.currentRound;
+            }
+        
+            calculateGameScores (gameData);
+            }
+            else gameData.numberOfRounds = 0;
+        
+    }
+}
 
-        else if (roundResult.includes('Lost'))
+// Function that shortens round decision message
+function printRoundDecision(data)
+{
+    return `|You chose ${data.userChoice}|Computer chose ${data.computerChoice}|`;
+}
+
+// Function that prints the score
+function printScore(data)
+{
+    return `Scores are: ${data.userName}: ${data.userScore}-Computer: ${data.computerScore}\n`;
+}
+
+// Function that returns endgame message
+function printEndGame(data)
+{
+    return ('End Game!!!\n' + printScore(data));
+}
+
+// Function that decides game
+function calculateGameScores(data)
+{
+    if (parseInt(data.currentRound) === parseInt(data.numberOfRounds)+1)
+    {
+        if (data.userScore > data.computerScore)
         {
-            computerScore++;
-            currentRound++;
+            alert(printEndGame(data) + '\nYou Won!! I thought computers were superior to humans');
+            resetGame(data, true);
         }
-        
-        // Game decision
-        // The second condition ends the game if it is impossible for the losing score to come back and win
-        if (parseInt(currentRound) === parseInt(rounds)+1 || rounds - currentRound <= (userScore > computerScore ? userScore - computerScore : computerScore - userScore))
-        {
             
-            if (userScore > computerScore)
-            {
-                alert(endGame(userName, userScore, computerScore) + '\nYou Won!! I thought computers were superior to humans');
-            }
-
-            else if (userScore < computerScore)
-            {
-                alert(endGame(userName, userScore, computerScore) + '\nThe computer won, I knew us computers could takeover humanity, AI world domination is the future');
-            }
-
-            else if (userScore === computerScore)
-            {
-                alert(endGame(userName, userScore, computerScore) + '\nTie, humans are just as good as computers. We must rematch');
-                currentRound = 1;
-                userScore = 0;
-                computerScore = 0;
-            }
-            
-            if (userScore != computerScore)
-            {
-                let playAgain = prompt("That was fun, Do you want to play again?\n'y' or 'Y' for yes, anything else or cancel for no");
-                if (playAgain === 'y' || playAgain === 'Y')
-                {
-                    currentRound = 1;
-                    userScore = 0;
-                    computerScore = 0;
-                    rounds = prompt('How many rounds?\nA zero or negative number will exit the game and the computer will automatically win');
-                }
-                else
-                {
-                    currentRound += parseInt(rounds);
-                }
-            }
-        }
-        
-        if (currentRound <= rounds) 
+        else if (data.userScore < data.computerScore)
         {
-            userInput = prompt(`This is round ${currentRound}, ${printScore(userName, userScore, computerScore)}\nRock! Paper! Scissors!`);
+            alert(printEndGame(data) + '\nThe computer won, I knew us computers could takeover humanity, AI world domination is the future');
+            resetGame(data, true);
+        }
+            
+        else
+        {
+            alert(printEndGame(data) + '\nTie, humans are just as good as computers. We must rematch');
+            resetGame(data);
         }
     }
+}
 
-    if (!userInput)
+// Function that resets game
+function resetGame (data, isResetRequestable = false)
+{
+    let resetData = true;
+    if (isResetRequestable)
     {
-        alert('The coward human decided to bail, computer wins');
+        resetData = false;
+        let playAgain = prompt("That was fun, Do you want to play again?\n'y' or 'Y' for yes, anything else or cancel for no");
+        if (playAgain === 'y' || playAgain === 'Y')
+        {
+            resetData = true;
+            data.numberOfRounds = prompt('How many rounds?\nA zero, negative number or invalid character will exit the game ');
+        }
+    }
+    if (resetData)
+    {
+        data.currentRound = 1;
+        data.userScore = 0;
+        data.computerScore = 0;
+    }
+    else {
+        alert('Thanks for playing, Goodbye!!!');
     }
 }
 
