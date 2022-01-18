@@ -1,0 +1,124 @@
+html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: lightblue;
+    display: flex;
+    height: 100%;
+    
+}
+
+.box {
+    height: 100%;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.main-container {
+    display: flex;
+    background-color: white;
+    height: 50%;
+    width: 100%;
+    flex-direction: column;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    justify-content: space-between;
+    align-items: center;  
+}
+
+.play-game-button {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.title-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+title {
+    text-align: center;
+    font-size: 3.5vw;
+}
+
+.container-content {
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+
+.container-content button {
+    width: 100%;
+    
+    border: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.rock-button {
+    border-top-left-radius: 30px;
+    
+}
+
+.rock-button:hover ~ .tile-rock{
+    color: red;
+}
+
+.scissors-button {
+    border-top-right-radius: 30px;
+}
+
+.container-content button:hover {
+    cursor: pointer;
+}
+
+.choice {
+    display: none;
+    width: 100%;
+}
+
+.result-container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 20%;
+    justify-content: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.result-container div {
+    display: flex;
+    align-items: center;
+}
+
+.round-decision {
+    border: solid;
+    justify-content: center;
+    flex: 1;
+    
+}
+.scores {
+    display: flex;
+    justify-content: space-evenly;
+    flex: 1;
+    border: solid;
+}
+.game-decision {
+    display: flex;
+    flex: 1;
+    border: solid;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    justify-content: center;
+}
