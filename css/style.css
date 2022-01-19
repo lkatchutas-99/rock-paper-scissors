@@ -8,7 +8,7 @@ body {
     background-color: lightblue;
     display: flex;
     height: 100%;
-    
+    margin: 0;
 }
 
 .box {
@@ -21,10 +21,20 @@ body {
     align-items: center;
 }
 
+.title-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0;
+}
+
+.title {
+    text-align: center;
+    font-size: 3.5vw;
+}
 
 .main-container {
     display: flex;
-    background-color: white;
     height: 50%;
     width: 100%;
     flex-direction: column;
@@ -34,50 +44,33 @@ body {
     align-items: center;  
 }
 
-.play-game-button {
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-}
-
-.title-container {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
-
-title {
-    text-align: center;
-    font-size: 3.5vw;
-}
-
-.container-content {
+.main-container-content {
     display: flex;
     flex: 1;
     width: 100%;
-}
 
-.container-content button {
+}
+.main-container-content button {
     width: 100%;
-    
     border: hidden;
     justify-content: center;
     align-items: center;
 }
 
-.rock-button {
+.play-game-button {
     border-top-left-radius: 30px;
-    
+    border-top-right-radius: 30px;
 }
 
-.rock-button:hover ~ .tile-rock{
-    color: red;
+.rock-button {
+    border-top-left-radius: 30px;
 }
 
 .scissors-button {
     border-top-right-radius: 30px;
 }
 
-.container-content button:hover {
+.main-container-content button:hover {
     cursor: pointer;
 }
 
@@ -104,21 +97,30 @@ title {
 
 .round-decision {
     border: solid;
-    justify-content: center;
     flex: 1;
-    
+    text-align: center;
+    justify-content: center;
 }
+
 .scores {
-    display: flex;
+    
     justify-content: space-evenly;
     flex: 1;
     border: solid;
 }
+
+.scores div {
+    height: 100%;
+    padding: 0 5px;
+}
+
 .game-decision {
-    display: flex;
+    
+    justify-content: center;
     flex: 1;
     border: solid;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
-    justify-content: center;
+    text-align: center;
 }
+
