@@ -1,3 +1,3 @@
 # rock-paper-scissors (Javascript)
 
-I built the main functions based off a small algorithm and the extras (eg., round selection, play again, helper functions) were ideas that I came up with while implementing the functions.
+This project uses UI to play rock-paper-scissors.  Buttons, labels and text colors react to wins and losses.  
